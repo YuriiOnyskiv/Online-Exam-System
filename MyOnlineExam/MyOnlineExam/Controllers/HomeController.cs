@@ -104,7 +104,7 @@ namespace MyOnlineExam.Controllers
                 }
             }
 
-            return View("EvalPage", new { @token = Session["TOKEN"] });
+            return RedirectToAction("EvalPage", new { @token = Session["TOKEN"] });
         }
 
 
@@ -151,6 +151,8 @@ namespace MyOnlineExam.Controllers
                         Label = y.Label,
                     }).ToList()
                 }).FirstOrDefault();
+
+                _model.TotalQuestionInSet = _ctx.TestXQuestion.Where(x => x.Question.IsActive == true && x.TestId == registration.TestId).Count();
 
                 return View(_model);
             }
